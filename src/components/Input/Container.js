@@ -1,7 +1,12 @@
 import React from 'react';
 import css from './Input.module.css';
-const Container = ({ children }) => {
-  return <div className={css.container}>{children}</div>;
+const Container = ({ title, children }) => {
+  return (
+    <div className={css.container}>
+      <h2 className={css.title}>{title}</h2>
+      {children}
+    </div>
+  );
 };
 
 export default Container;

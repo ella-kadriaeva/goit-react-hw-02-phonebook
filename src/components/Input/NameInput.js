@@ -1,5 +1,5 @@
 import React from 'react';
-const Input = () => {
+const NameInput = () => {
   return (
     <>
       <input
@@ -13,4 +13,4 @@ const Input = () => {
   );
 };
 
-export default Input;
+export default NameInput;
