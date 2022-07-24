@@ -1,19 +1,20 @@
 import React from 'react';
-const NameInput = ({ name, onChange }) => {
+const NameInput = ({ name, onChange, nameInputId }) => {
   return (
     <>
-      <form autoComplete="off" onChange={onChange}>
-        <label htmlFor="name">Name</label>
+      <label htmlFor={nameInputId}>
+        Name
         <input
           type="text"
           name="name"
           value={name}
+          onChange={onChange}
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
         />
-        <button type="submit">Add contact</button>
-      </form>
+      </label>
+      <button type="button">Add contact</button>
     </>
   );
 };

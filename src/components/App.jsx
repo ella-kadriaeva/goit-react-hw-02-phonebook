@@ -23,10 +23,10 @@ export default class App extends Component {
   };
   handleChange = e => {
     const { name, value } = e.currentTarget;
-    this.setState({
-      [name]: value,
-    });
+
+    this.setState({ [name]: value });
   };
+
   render() {
     const { contacts, name, number } = this.state;
 
