@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import NameInput from './Input/NameInput';
-import NumberInput from './Input/NumberInput';
+import ContactForm from './Input/ContactForm';
 import Container from './Input/Container';
 import Section from './Input/Section';
-import ContactsList from './Input/ContactList';
+// import ContactsList from './Input/ContactList';
 export default class App extends Component {
   state = {
     contacts: [
@@ -21,26 +20,15 @@ export default class App extends Component {
       contacts: prevState.contacts.filter(contact => contact.id !== contactId),
     }));
   };
-  handleChange = e => {
-    const { name, value } = e.currentTarget;
-
-    this.setState({ [name]: value });
+  formSubmitHandle = data => {
+    console.log(data);
   };
 
   render() {
-    const { contacts, name, number } = this.state;
-
     return (
       <Section>
         <Container title="Phonebook">
-          <NameInput value={name} onChange={this.handleChange} />
-        </Container>
-        <Container title="Contacts">
-          <NumberInput value={number} onChange={this.handleChange} />
-          <ContactsList
-            contacts={contacts}
-            onDeleteContacts={this.deleteContacts}
-          />
+          <ContactForm onSubmit={this.formSubmitHandle} />
         </Container>
       </Section>
     );
