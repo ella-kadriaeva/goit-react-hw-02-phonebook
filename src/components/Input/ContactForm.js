@@ -1,24 +1,21 @@
 import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
-
+import PropTypes from 'prop-types';
 export default class ContactForm extends Component {
   state = {
     name: '',
     number: '',
   };
-  // model.id = nanoid()
   nameId = nanoid();
   numberId = nanoid();
+
   handleChange = e => {
     const { name, value } = e.currentTarget;
     this.setState({ [name]: value });
   };
   handleSubmit = e => {
     e.preventDefault();
-    this.props.onSubmit = this.state;
-    this.reset();
-  };
-  reset = () => {
+    this.props.onSubmit({ ...this.state });
     this.setState({ name: '', number: '' });
   };
   render() {
@@ -37,10 +34,7 @@ export default class ContactForm extends Component {
           required
           id={this.nameId}
         />
-
-        <button type="button">Add contact</button>
         <label htmlFor={this.numberId}>Telefon</label>
-
         <input
           type="tel"
           name="number"
@@ -51,7 +45,18 @@ export default class ContactForm extends Component {
           required
           id={this.numberId}
         />
+        <button type="submit">Add contact</button>
       </form>
     );
   }
 }
+ContactForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+    })
+  ),
+};
