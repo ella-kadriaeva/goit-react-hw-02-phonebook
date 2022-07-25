@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ContactForm from './Input/ContactForm';
 import Container from './Input/Container';
-import Section from './Input/Section';
+import Filter from './Input/Filter';
 import ContactList from './Input/ContactList';
 import { nanoid } from 'nanoid';
 export default class App extends Component {
@@ -13,8 +13,6 @@ export default class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    name: '',
-    number: '',
   };
 
   formSubmitHandle = data => {
@@ -39,20 +37,33 @@ export default class App extends Component {
       contacts: prevState.contacts.filter(contact => contact.id !== contactId),
     }));
   };
+  searchFilter = filter => {
+    this.setState({ filter });
+  };
+  getVisibleContacts = () => {
+    const { contacts, filter } = this.state;
+    const normalizedFilter = filter.toLowerCase();
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizedFilter)
+    );
+  };
   render() {
-    const { contacts } = this.state;
+    const { filter } = this.state;
+    const visibleContacts = this.getVisibleContacts();
     return (
-      <Section>
+      <div>
         <Container title="Phonebook">
           <ContactForm onSubmit={this.formSubmitHandle} />
         </Container>
         <Container title="Contacts">
+          <Filter value={filter} onFilter={this.searchFilter} />
+
           <ContactList
-            contacts={contacts}
+            contacts={visibleContacts}
             deleteContacts={this.deleteContacts}
           />
         </Container>
-      </Section>
+      </div>
     );
   }
 }
