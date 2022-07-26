@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import ContactForm from './Input/ContactForm';
-import Container from './Input/Container';
-import Filter from './Input/Filter';
-import ContactList from './Input/ContactList';
+import ContactForm from './ContactForm/ContactForm';
+import Container from './Container/Container';
+import Filter from './Filter/Filter';
+import ContactList from './ContactList/ContactList';
 import { nanoid } from 'nanoid';
 export default class App extends Component {
   state = {
@@ -16,10 +16,10 @@ export default class App extends Component {
   };
 
   formSubmitHandle = data => {
-    const doubl = this.state.contacts
+    const sameName = this.state.contacts
       .map(contact => contact.name)
       .includes(data.name);
-    if (doubl) {
+    if (sameName) {
       alert(`${data.name} is already in contacts`);
     } else {
       const contact = {
@@ -37,9 +37,11 @@ export default class App extends Component {
       contacts: prevState.contacts.filter(contact => contact.id !== contactId),
     }));
   };
+
   searchFilter = filter => {
     this.setState({ filter });
   };
+
   getVisibleContacts = () => {
     const { contacts, filter } = this.state;
     const normalizedFilter = filter.toLowerCase();
@@ -47,6 +49,7 @@ export default class App extends Component {
       contact.name.toLowerCase().includes(normalizedFilter)
     );
   };
+
   render() {
     const { filter } = this.state;
     const visibleContacts = this.getVisibleContacts();
